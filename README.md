@@ -26,4 +26,6 @@ Después le agregaremos los colores, eso suena mas complicado. En mi investigaci
 
 Zen mode activated.
 
+Listo ya tenemos el grafo, ahora a programar ese algoritmo de busqueda...
+
 Fin de la transmisión.
