@@ -17,16 +17,18 @@ class Graph:
         vertex_b.add_neighbor(vertex_a)
         vertex_a.add_neighbor(vertex_b)
 
-    def bfs(self, r):
+    def bfs(self, initial_node: Vertex, end_node: Vertex, route: str):
         print("===================================================================")
         logger('Starting search...')
-        # logger(f'''{self.vertex_set}''')
-        if r in self.vertex_set:
-            queue = [r]
-            self.vertex_set[r].visited = True
-            self.vertex_set[r].level = 0
+        i = initial_node.id
+        e = end_node.id
 
-            logger(f'''( {r}, {self.vertex_set[r].level} )''')
+        if i in self.vertex_set and e in self.vertex_set:
+            bfs_data = []
+            queue = [i]
+            self.vertex_set[i].visited = True
+            self.vertex_set[i].level = 0
+            bfs_data.append([i, str(self.vertex_set[i].level)])
 
             while len(queue) > 0:
                 current = queue[0]
@@ -42,6 +44,12 @@ class Graph:
 
                         id = str(v)
                         level = str(self.vertex_set[v].level)
-                        logger(f'''( {id}, {level} )''')
-            print(
-                "===================================================================")
+                        bfs_data.append([id, level])
+
+            return bfs_data
+
+    # def generate_routes(self, dfs: list[list[str]]):
+    #     routes = []
+
+        print(
+            "===================================================================")
