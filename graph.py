@@ -1,4 +1,5 @@
-from logger import logger
+from ast import If
+from utils import logger, line
 from vertex import Vertex
 
 
@@ -18,7 +19,7 @@ class Graph:
         vertex_a.add_neighbor(vertex_b)
 
     def bfs(self, initial_node: Vertex, end_node: Vertex, route: str):
-        print("===================================================================")
+        line()
         logger('Starting search...')
         i = initial_node.id
         e = end_node.id
@@ -45,11 +46,12 @@ class Graph:
                         id = str(v)
                         level = str(self.vertex_set[v].level)
                         bfs_data.append([id, level])
+                        if e == v:
+                            return bfs_data
 
             return bfs_data
 
+        line()
+
     # def generate_routes(self, dfs: list[list[str]]):
     #     routes = []
-
-        print(
-            "===================================================================")
