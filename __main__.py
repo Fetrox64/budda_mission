@@ -72,9 +72,8 @@ def main():
     initial_node = ask_for_initial_node(my_graph)
     end_node = ask_for_end_node(my_graph, initial_node)
     route = ask_for_route()
-    bfs_data = my_graph.bfs(initial_node, end_node, route)
-    logger(bfs_data)
-    # my_graph.generate_routes(bfs_data)
+    my_graph.bfs(initial_node, end_node, route)
+    my_graph.generate_routes(initial_node, end_node)
     line()
 
 

@@ -1,4 +1,5 @@
-from ast import If
+from gettext import find
+from random import choice
 from utils import logger, line
 from vertex import Vertex
 
@@ -25,11 +26,9 @@ class Graph:
         e = end_node.id
 
         if i in self.vertex_set and e in self.vertex_set:
-            bfs_data = []
             queue = [i]
             self.vertex_set[i].visited = True
             self.vertex_set[i].level = 0
-            bfs_data.append([i, str(self.vertex_set[i].level)])
 
             while len(queue) > 0:
                 current = queue[0]
@@ -43,15 +42,24 @@ class Graph:
                         self.vertex_set[v].visited = True
                         self.vertex_set[v].level = self.vertex_set[current].level + 1
 
-                        id = str(v)
-                        level = str(self.vertex_set[v].level)
-                        bfs_data.append([id, level])
-                        if e == v:
-                            return bfs_data
+    def generate_routes(self, initial_node: Vertex, end_node: Vertex):
+        route = []
+        current = initial_node
+        distance = end_node.level
+        founded = False
 
-            return bfs_data
+        while not founded:
 
-        line()
+            for n in range(distance + 1):
+                route.append(current.id)
+                current = choice(self.vertex_set[current.id].neighbor_set)
 
-    # def generate_routes(self, dfs: list[list[str]]):
-    #     routes = []
+            last_node = route.copy().pop()
+
+            if last_node == end_node.id:
+                logger(f'''Best route: {' - '.join(route)}''')
+                founded = True
+                break
+            else:
+                route = []
+                current = self.vertex_set[initial_node.id]
