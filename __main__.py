@@ -55,7 +55,6 @@ def ask_for_end_node(my_graph: Graph, initial_node: Vertex):
 
 
 def ask_for_route():
-    return 'NORMAL'
     avaliable_routes = ['NORMAL', 'RED', 'GREEN']
     route = input('[BUDDA] Input a route: ').upper()
 
@@ -73,8 +72,10 @@ def main():
     end_node = ask_for_end_node(my_graph, initial_node)
     route = ask_for_route()
     my_graph.bfs(initial_node, end_node, route)
-    # my_graph.bfs_with_colors(initial_node, end_node, route)
-    my_graph.generate_routes(initial_node, end_node)
+    if route == 'NORMAL':
+        my_graph.generate_routes(initial_node, end_node)
+    else:
+        my_graph.generate_routes_with_colors(initial_node, end_node)
     line()
 
 
