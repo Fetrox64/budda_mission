@@ -1,10 +1,12 @@
 from unittest import TestCase, main
+from src.utils import logger
 
 
 class GhaphTest(TestCase):
 
     def test(self):
-        self.assertTrue(3 < 2)
+        logger('Testing')
+        self.assertTrue(3 < 5)
 
 
 if __name__ == "__main__.py":
