@@ -2,12 +2,12 @@ VERTEX_SET = [
     ['A', 'La Cisterna', 'NORMAL'],
     ['B', 'Franklin', 'NORMAL'],
     ['C', 'Los Héroes', 'NORMAL'],
-    ['D', 'Vicuña Mackenna', 'NORMAL'],
+    ['D', 'Vicuña Mackenna', 'GREEN'],
     ['E', 'Ñuble', 'NORMAL'],
-    ['F', 'Universidad de Chile', 'NORMAL'],
+    ['F', 'Universidad de Chile', 'RED'],
     ['G', 'Plaza Egaña', 'NORMAL'],
     ['H', 'Ñuñoa', 'NORMAL'],
-    ['I', 'Baquedano', 'NORMAL'],
+    ['I', 'Baquedano', 'RED'],
     ['J', 'Tobalaba', 'NORMAL'],
     ['K', 'Los Leones', 'NORMAL']
 ]

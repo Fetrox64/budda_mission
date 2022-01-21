@@ -1,7 +1,7 @@
 from gettext import find
 from random import choice
-from utils import logger, line
-from vertex import Vertex
+from src.utils import logger, line
+from src.vertex import Vertex
 
 
 class Graph:
@@ -22,6 +22,29 @@ class Graph:
     def bfs(self, initial_node: Vertex, end_node: Vertex, route: str):
         line()
         logger('Starting search...')
+        i = initial_node.id
+        e = end_node.id
+
+        if i in self.vertex_set and e in self.vertex_set:
+            queue = [i]
+            self.vertex_set[i].visited = True
+            self.vertex_set[i].level = 0
+
+            while len(queue) > 0:
+                current = queue[0]
+                queue = queue[1:]
+
+                for v in self.vertex_set[current].neighbor_set:
+                    v = v.id
+
+                    if self.vertex_set[v].visited == False:
+                        queue.append(v)
+                        self.vertex_set[v].visited = True
+                        self.vertex_set[v].level = self.vertex_set[current].level + 1
+
+    def bfs_with_colors(self, initial_node: Vertex, end_node: Vertex, route: str):
+        line()
+        logger('Starting search with colors...')
         i = initial_node.id
         e = end_node.id
 

@@ -1,7 +1,7 @@
-from metro_graph import VERTEX_SET, EDGES_SET
-from utils import logger, line
-from graph import Graph
-from vertex import Vertex
+from src.graph_models.metro_graph import VERTEX_SET, EDGES_SET
+from src.utils import logger, line
+from src.graph import Graph
+from src.vertex import Vertex
 
 
 def generate_graph(VERTEX_SET, EDGES_SET):
@@ -73,6 +73,7 @@ def main():
     end_node = ask_for_end_node(my_graph, initial_node)
     route = ask_for_route()
     my_graph.bfs(initial_node, end_node, route)
+    # my_graph.bfs_with_colors(initial_node, end_node, route)
     my_graph.generate_routes(initial_node, end_node)
     line()
 
