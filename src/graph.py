@@ -1,4 +1,4 @@
-from gettext import find
+from logging import Logger
 from random import choice
 from src.utils import logger, line
 from src.vertex import Vertex
@@ -19,18 +19,17 @@ class Graph:
         vertex_b.add_neighbor(vertex_a)
         vertex_a.add_neighbor(vertex_b)
 
-    def bfs(self, initial_node: Vertex, end_node: Vertex, route: str):
+    def bfs(self, initial_node: Vertex, route: str):
         line()
         logger('Starting search...')
         i = initial_node.id
-        e = end_node.id
 
-        if i in self.vertex_set and e in self.vertex_set:
+        if i in self.vertex_set:
             bfs_data = []
             queue = [i]
             self.vertex_set[i].visited = True
             self.vertex_set[i].level = 0
-            bfs_data.append([i, str(self.vertex_set[i].level)])
+            bfs_data.append([i, self.vertex_set[i].level])
 
             while len(queue) > 0:
                 current = queue[0]
@@ -53,58 +52,50 @@ class Graph:
 
                         bfs_data.append(
                             [self.vertex_set[v].id, self.vertex_set[v].level])
-                    if e == v:
-                        return bfs_data
 
-    def generate_routes(self, initial_node: Vertex, end_node: Vertex):
-        route = []
+            return bfs_data
+
+    def generate_routes(self, initial_node: Vertex, end_node: Vertex, route: str):
+        path = []
         current = initial_node
         distance = end_node.level
         founded = False
 
         while not founded:
 
-            for n in range(distance + 1):
-                route.append(current.id)
-                current = choice(self.vertex_set[current.id].neighbor_set)
+            if route != 'NORMAL':
 
-            last_node = route.copy().pop()
+                for n in range(distance + 1):
+                    if current.route == 'RED' and route == 'RED':
+                        path.append(current.id)
+                        current = choice(
+                            self.vertex_set[current.id].neighbor_set)
+                    elif current.route == 'GREEN' and route == 'GREEN':
+                        path.append(current.id)
+                        current = choice(
+                            self.vertex_set[current.id].neighbor_set)
+                    elif current.route == 'NORMAL':
+                        path.append(current.id)
+                        current = choice(
+                            self.vertex_set[current.id].neighbor_set)
+                    while current.route == 'GREEN' and route == 'RED':
+                        current = choice(current.neighbor_set)
+                    while current.route == 'RED' and route == 'GREEN':
+                        current = choice(current.neighbor_set)
+
+            else:
+                for n in range(distance + 1):
+                    path.append(current.id)
+                    current = choice(self.vertex_set[current.id].neighbor_set)
+
+            last_node = path.copy().pop()
 
             if last_node == end_node.id:
-                logger(f'''Best route: {' - '.join(route)}''')
+                logger(f'''Best route: {' -> '.join(path)}''')
                 founded = True
                 break
             else:
-                route = []
-                current = self.vertex_set[initial_node.id]
+                path = []
+                current = initial_node
 
-    def generate_routes_with_colors(self, initial_node: Vertex, end_node: Vertex):
-        route = []
-        current = initial_node
-        distance = end_node.level
-        founded = False
-        level_neighbor = []
-
-        for n in self.vertex_set:
-            if self.vertex_set[n].level == current.level + 1:
-                level_neighbor.append(n)
-
-        while not founded:
-
-            for n in range(distance + 1):
-                level_neighbor = []
-                for n in self.vertex_set:
-                    if self.vertex_set[n].level == current.level + 1:
-                        level_neighbor.append(n)
-                route.append(current.id)
-                current = self.vertex_set[choice(level_neighbor)]
-
-            last_node = route.copy().pop()
-
-            if last_node == end_node.id:
-                logger(f'''Best route: {' - '.join(route)}''')
-                founded = True
-                break
-            else:
-                route = []
-                current = self.vertex_set[initial_node.id]
+        return path

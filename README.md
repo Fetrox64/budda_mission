@@ -32,9 +32,11 @@ Listo ya tenemos el grafo, ahora a programar ese algoritmo de busqueda...
 
 Fue intenso pero me entretuve, logré a partir de un algoritmo de búsqueda por anchura generar rutas aleatorias hasta encontrar la más corta, lo de los colores me la puso difícil, el algoritmo generador fue todo un desafio. Ya aquí después de varias pruebas lo tenemos...
 
+Nota: Para ejecutar los test se seleccionaron los nodos A y K para comparar, por lo tanto solo se puede variar la ruta.
+
 ```
-Para iniciar el programa: python __main__.py
-Para iniciar los test: python -m unittest src/test.py
+Para iniciar el programa: python main.py
+Para iniciar los test: python -m unittest src/test_graph.py
 ```
 
 Espero lo hayan pasado tan bien como yo, estamos al habla!

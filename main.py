@@ -1,4 +1,4 @@
-from src.graph_models.metro_graph import VERTEX_SET, EDGES_SET
+from src.metro_graph import VERTEX_SET, EDGES_SET
 from src.utils import logger, line
 from src.graph import Graph
 from src.vertex import Vertex
@@ -9,14 +9,10 @@ def generate_graph(VERTEX_SET, EDGES_SET):
     logger('Starting...')
     logger('Creating graph...')
     my_graph = Graph()
-    logger('Adding vertexs...')
     for v in VERTEX_SET:
         my_graph.add_vertex(v)
-    logger('Adding edges...')
     for e in EDGES_SET:
         my_graph.add_edge(e)
-    logger('Graph created')
-    line()
     return my_graph
 
 
@@ -71,11 +67,8 @@ def main():
     initial_node = ask_for_initial_node(my_graph)
     end_node = ask_for_end_node(my_graph, initial_node)
     route = ask_for_route()
-    my_graph.bfs(initial_node, end_node, route)
-    if route == 'NORMAL':
-        my_graph.generate_routes(initial_node, end_node)
-    else:
-        my_graph.generate_routes_with_colors(initial_node, end_node)
+    my_graph.bfs(initial_node, route)
+    my_graph.generate_routes(initial_node, end_node, route)
     line()
 
 
