@@ -1,4 +1,3 @@
-from logging import Logger
 from random import choice
 from src.utils import logger, line
 from src.vertex import Vertex
